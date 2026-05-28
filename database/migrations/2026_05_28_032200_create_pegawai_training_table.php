@@ -10,19 +10,19 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('pegawai_training', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('pegawai_id')
-                ->constrained('pegawais')
-                ->cascadeOnDelete();
-            $table->foreignId('training_id')
-                ->constrained('trainings')
-                ->cascadeOnDelete();
-            $table->enum('status', ['Terdaftar','Mengikuti','Selesai']);
-            $table->timestamps();
-        });
-    }
+{
+Schema::create('pegawai_training', function (Blueprint $table) {
+$table->id();
+$table->foreignId('pegawai_id')->constrained('pegawais')->cascadeOnDelete();
+$table->foreignId('training_id')->constrained('trainings')->cascadeOnDelete();
+$table->enum('status', [
+'Terdaftar',
+'Mengikuti',
+'Selesai'
+]);
+$table->timestamps();
+});
+}
 
     /**
      * Reverse the migrations.

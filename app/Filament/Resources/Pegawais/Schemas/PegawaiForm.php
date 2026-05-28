@@ -7,7 +7,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
-
+use Filament\Forms\Components\FileUpload;
 class PegawaiForm
 {
     public static function configure(Schema $schema): Schema
@@ -24,12 +24,16 @@ class PegawaiForm
                 Select::make('gender')
                     ->options(['Laki-laki' => 'Laki laki', 'Perempuan' => 'Perempuan'])
                     ->required(),
-                TextInput::make('divisi_id')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('jabatan_id')
-                    ->required()
-                    ->numeric(),
+                Select::make('divisi_id')
+                    ->relationship('divisi', 'nama_divisi')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                Select::make('jabatan_id')
+                    ->relationship('jabatan', 'nama_jabatan')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
                 TextInput::make('tmp_lahir')
                     ->required(),
                 DatePicker::make('tgl_lahir')
@@ -39,8 +43,13 @@ class PegawaiForm
                 Textarea::make('alamat')
                     ->required()
                     ->columnSpanFull(),
-                TextInput::make('foto')
-                    ->default(null),
+                FileUpload::make('foto')
+                    ->label('Foto Pegawai')
+                    ->image()
+                    ->directory('pegawai')
+                    ->imageEditor()
+                    ->maxSize(2048)
+                    ->nullable(),
             ]);
     }
 }

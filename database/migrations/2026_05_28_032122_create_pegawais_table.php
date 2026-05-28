@@ -9,12 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void {
+       public function up(): void {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnDelete();
+            
+            // UBAH BARIS INI: Menjadi angka biasa agar bebas diisi angka berapa saja
+            $table->unsignedBigInteger('user_id'); 
+            
             $table->string('nim')->unique();
             $table->string('nama');
             $table->enum('gender', ['Laki-laki','Perempuan']);
@@ -32,6 +33,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
